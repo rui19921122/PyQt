@@ -1,0 +1,93 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'LoginForm.ui'
+#
+# Created by: PyQt5 UI code generator 5.5.1
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_Form(QtWidgets.QWidget):
+    def setupUi(self, Form):
+        Form.setObjectName("Form")
+        Form.resize(1065, 577)
+        self.formLayout_2 = QtWidgets.QFormLayout(Form)
+        self.formLayout_2.setObjectName("formLayout_2")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        spacerItem = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem)
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.verticalLayout_2.addWidget(self.label)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem1)
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.formLayout = QtWidgets.QFormLayout()
+        self.formLayout.setLabelAlignment(QtCore.Qt.AlignCenter)
+        self.formLayout.setFormAlignment(QtCore.Qt.AlignCenter)
+        self.formLayout.setObjectName("formLayout")
+        self.UsernameInput = QtWidgets.QLineEdit(Form)
+        self.UsernameInput.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.UsernameInput.setObjectName("UsernameInput")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.UsernameInput)
+        self.PasswordLabel = QtWidgets.QLabel(Form)
+        self.PasswordLabel.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.PasswordLabel.setStyleSheet("")
+        self.PasswordLabel.setAlignment(QtCore.Qt.AlignCenter)
+        self.PasswordLabel.setObjectName("PasswordLabel")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.PasswordLabel)
+        self.PasswordInput = QtWidgets.QLineEdit(Form)
+        self.PasswordInput.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.PasswordInput.setBaseSize(QtCore.QSize(0, 0))
+        self.PasswordInput.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.PasswordInput.setObjectName("PasswordInput")
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.PasswordInput)
+        self.PasswordLabel_2 = QtWidgets.QLabel(Form)
+        self.PasswordLabel_2.setEnabled(True)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.PasswordLabel_2.sizePolicy().hasHeightForWidth())
+        self.PasswordLabel_2.setSizePolicy(sizePolicy)
+        self.PasswordLabel_2.setMaximumSize(QtCore.QSize(50, 16777215))
+        self.PasswordLabel_2.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.PasswordLabel_2.setStyleSheet("")
+        self.PasswordLabel_2.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.PasswordLabel_2.setLineWidth(1)
+        self.PasswordLabel_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.PasswordLabel_2.setIndent(-1)
+        self.PasswordLabel_2.setObjectName("PasswordLabel_2")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.PasswordLabel_2)
+        self.verticalLayout.addLayout(self.formLayout)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem2)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem3)
+        self.SubmitButton = QtWidgets.QPushButton(Form)
+        self.SubmitButton.setObjectName("SubmitButton")
+        self.horizontalLayout.addWidget(self.SubmitButton)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem4)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem5)
+        self.formLayout_2.setLayout(0, QtWidgets.QFormLayout.FieldRole, self.verticalLayout_2)
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:18pt;\">欢迎使用上海铁路局芜湖东站点名会系统</span></p></body></html>"))
+        self.PasswordLabel.setText(_translate("Form", "密码"))
+        self.PasswordLabel_2.setText(_translate("Form", "用户名"))
+        self.SubmitButton.setText(_translate("Form", "登陆"))
+
