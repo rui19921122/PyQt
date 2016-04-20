@@ -1,23 +1,19 @@
 # -*- coding: utf-8 -*-
 import ctypes
 import sys
-from PyQt5 import QtWidgets, QtMultimedia, QtCore
-import struct
 
-from Display import Ui_DisplayWorker
+import requests
+from PyQt5 import QtWidgets, QtMultimedia, QtCore
+
+from UI.Display import Ui_DisplayWorker
+from customWidget import TableItem
 from url_resolve import parse_url
 
 
-class TableItem(QtWidgets.QTableWidgetItem):
-    def __init__(self, text):
-        super(TableItem, self).__init__()
-        self.setText(text)
-        self.setTextAlignment(QtCore.Qt.AlignCenter)
-
-
-class DisplayStarting(Ui_DisplayWorker):
+class DisplayStarting(QtWidgets.QWidget,Ui_DisplayWorker):
 
     _figure = QtCore.pyqtSignal(bytes)
+    _metion = QtCore.pyqtSignal(str,bool)
 
     def __init__(self, session, main_window):
         """
@@ -30,20 +26,22 @@ class DisplayStarting(Ui_DisplayWorker):
         self.setupUi(self)
         self.session = session
         self.get_initial_state()
-        self.BeginButton.clicked.connect(self.BeginButtonClicked)
+        self._figure.connect(self.post_figure_data)
         self.pushButton.clicked.connect(self.refresh_person_state)
         self.mainWindow = main_window
+        self._metion.connect(self.refresh_prompt_label)
         # 获取点名会相关信息，不将此放在refresh函数中是因为可以省下一次网络请求
         response = self.session.get(url=parse_url('api/call_over/get-call-over-person/'))
         """:type response:requests.Response"""
         json = response.json()
+        self.pk = json.get('id')
+        self.BeginButton.clicked.connect(self.BeginButtonClicked)
         if json.get('lock') == False:
             self.checked = False
         elif json.get('lock') == True:
             self.checked = True
-        self.pk = json.get('id')
+            self.BeginButtonClicked()
         self.refresh_person_state()
-        self._figure.connect(self.post_figure_data)
 
     def get_initial_state(self):
         # 录音设备
@@ -100,29 +98,33 @@ class DisplayStarting(Ui_DisplayWorker):
             row += 1
 
     def BeginButtonClicked(self):
-        self.checked = True
-        self.label_2.setText('人员已确认完毕，可以开始录制指纹')
-        self.BeginButton.disconnect()
-        self.BeginButton.clicked.connect(self.mainWindow.start_call_over)
-        if self.can_collect_figure:
-            self.Timer = QtCore.QTimer()
-            self.Timer.timeout.connect(self.checkFigure)
-            self.Timer.start(1500)
-
+        response = self.session.post(url=parse_url('api/call_over/lock-call-over-person/'),data={'number':self.pk})
+        assert isinstance(response, requests.Response)
+        if response.status_code == 201 or 200:
+            self.label_2.setText('人员已确认完毕，可以开始录制指纹')
+            self.BeginButton.disconnect()
+            self.BeginButton.clicked.connect(self.mainWindow.start_call_over)
+            if self.can_collect_figure:
+                self.Timer = QtCore.QTimer()
+                self.Timer.timeout.connect(self.checkFigure)
+                self.Timer.start(1500)
+        else:
+            message = QtWidgets.QMessageBox.warning(self.mainWindow, "错误", str(response.text), QtWidgets.QMessageBox.Yes)
     def checkFigure(self):
         if self.can_collect_figure:
-            f = self.dll.FPICheckFinger(self.figure_number)
-            if f == 0:
-                self.Timer.stop()
-                pstz = ctypes.create_string_buffer(512)
-                length = ctypes.create_string_buffer(512)
-                self.dll.FPIFeatureWithoutUI(0, pstz, length)
-                self._figure.emit(pstz.raw)
-                del pstz, length
-                self.Timer.start(1500)
-            elif f == 1:
-                pass
-            else:
+            try:
+                f = self.dll.FPICheckFinger(self.figure_number)
+                if f == 0:
+                    self.Timer.stop()
+                    pstz = ctypes.create_string_buffer(512)
+                    length = ctypes.create_string_buffer(512)
+                    self.dll.FPIFeatureWithoutUI(0, pstz, length)
+                    self._figure.emit(pstz.raw)
+                    del pstz, length
+                    self.Timer.start(1500)
+                elif f == 1:
+                    pass
+            except:
                 self.can_collect_figure = False
                 self.FigureLabel.setText("出错，请联系管理员")
                 self.Time.stop()
@@ -132,9 +134,17 @@ class DisplayStarting(Ui_DisplayWorker):
                                      data={'number':self.pk,'figure_data':value.decode('utf-8')})
         """:type response:requests.Response"""
         if response.status_code == 201:
-            print('已经获取指纹')
+            name = response.json().get('people')
+            self._metion.emit(name,True)
         else:
-            print(response.text)
+            self._metion.emit(response.text,False)
+
+    def refresh_prompt_label(self, string, boolean):
+        if boolean:
+            self.label_2.setText(string+'已签到')
+        else:
+            self.label_2.setText('错误:'+str(string))
+
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

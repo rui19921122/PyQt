@@ -1,11 +1,10 @@
-from PyQt5 import QtCore, QtWidgets, QtGui
-import LoginForm
-import mainWindow
-from url_resolve import parse_url
+from PyQt5 import QtCore
+
+from UI import LoginForm
 
 
 class LoginFormLogic(LoginForm.Ui_Form):
-    _submit = QtCore.pyqtSignal(str, str)
+    _submit = QtCore.pyqtSignal(str, str, bool)
 
     def __init__(self, widget=None):
         super(LoginFormLogic, self).__init__()
@@ -19,4 +18,8 @@ class LoginFormLogic(LoginForm.Ui_Form):
         password = self.PasswordInput.text()
         # todo change this
         # self._submit.emit(username, password)
-        self._submit.emit('test', '111111')
+        if self.checkBox.isChecked():
+            self._submit.emit('test','111111',True)
+        else:
+            self._submit.emit('test', '111111', False)
+

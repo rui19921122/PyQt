@@ -1,1 +1,6 @@
-<RCC/>
+<RCC>
+  <qresource prefix="FigureImage">
+    <file>resource/Had.jpg</file>
+    <file>resource/NotHad.jpg</file>
+  </qresource>
+</RCC>

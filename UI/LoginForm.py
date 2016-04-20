@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'LoginForm.ui'
 #
-# Created by: PyQt5 UI code generator 5.5.1
+# Created by: PyQt5 UI code generator 5.4.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -63,21 +63,22 @@ class Ui_Form(QtWidgets.QWidget):
         self.PasswordLabel_2.setObjectName("PasswordLabel_2")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.PasswordLabel_2)
         self.verticalLayout.addLayout(self.formLayout)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem2)
+        self.checkBox = QtWidgets.QCheckBox(Form)
+        self.checkBox.setObjectName("checkBox")
+        self.verticalLayout.addWidget(self.checkBox,0, QtCore.Qt.AlignHCenter)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem3)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
         self.SubmitButton = QtWidgets.QPushButton(Form)
         self.SubmitButton.setObjectName("SubmitButton")
         self.horizontalLayout.addWidget(self.SubmitButton)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem4)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem3)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout_2.addLayout(self.verticalLayout)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_2.addItem(spacerItem5)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem4)
         self.formLayout_2.setLayout(0, QtWidgets.QFormLayout.FieldRole, self.verticalLayout_2)
 
         self.retranslateUi(Form)
@@ -89,5 +90,5 @@ class Ui_Form(QtWidgets.QWidget):
         self.label.setText(_translate("Form", "<html><head/><body><p><span style=\" font-size:18pt;\">欢迎使用上海铁路局芜湖东站点名会系统</span></p></body></html>"))
         self.PasswordLabel.setText(_translate("Form", "密码"))
         self.PasswordLabel_2.setText(_translate("Form", "用户名"))
+        self.checkBox.setText(_translate("Form", "进入指纹采集模块"))
         self.SubmitButton.setText(_translate("Form", "登陆"))
-
